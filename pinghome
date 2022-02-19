@@ -26,7 +26,6 @@ sleep 2
 while :
 do
 
-#ping -c 4 $server > /dev/null
 ping -c 4 $server > /dev/null
 status=$?
 
