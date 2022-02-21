@@ -11,9 +11,9 @@ interval=60   #interval to test
 botToken="xxxxxxx"
 groupId1="xxxxx"
 botapi="https://api.telegram.org/bot${botToken}/sendMessage"
-infomessage1= %e2%9a%a1 Initiated bot %0A$(date +"%a, %d. %B %Y, %H:%M:%S")
-infomessage2= %e2%9c%85 Connection back up! %0A$(date +"%a, %d. %B %Y, %H:%M:%S")
-infomessage3= %f0%9f%9a%a8 Connection timeout! %0A$(date +"%a, %d. %B %Y, %H:%M:%S")
+infomessage1="%e2%9a%a1 Initiated bot %0A$(date +"%a, %d. %B %Y, %H:%M:%S")"
+infomessage2="%e2%9c%85 Connection back up! %0A$(date +"%a, %d. %B %Y, %H:%M:%S")"
+infomessage3="%f0%9f%9a%a8 Connection timeout! %0A$(date +"%a, %d. %B %Y, %H:%M:%S")"
 
 # START ACTION DO NOT CHANGE #
 echo $(date) 'Starting monitoring'
