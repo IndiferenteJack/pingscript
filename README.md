@@ -1,4 +1,4 @@
-# Bash script to check internet connection and send to telegram
+# Bash script to check internet connection and send it to telegram
 
 - Author: IndiferenteJack
 
