@@ -12,8 +12,8 @@ botToken="xxxxxxx"
 groupId1="xxxxx"
 botapi="https://api.telegram.org/bot${botToken}/sendMessage"
 infomessage1="%e2%9a%a1 Initiated bot %0A$(date +"%a, %d. %B %Y, %H:%M:%S")"
-infomessage2="%e2%9c%85 Connection back up! %0A$(date +"%a, %d. %B %Y, %H:%M:%S")"
-infomessage3="%f0%9f%9a%a8 Connection timeout! %0A$(date +"%a, %d. %B %Y, %H:%M:%S")"
+infomessage2="%e2%9c%85 Connection back up!"
+infomessage3="%f0%9f%9a%a8 Connection timeout!"
 
 # START ACTION DO NOT CHANGE #
 echo $(date) 'Starting monitoring'
@@ -23,7 +23,7 @@ if [ ! -f /var/log/pinghome-log.txt ] || grep -Fxq "" /var/log/pinghome-log.txt;
 then
     echo "offline" > /var/log/pinghome-log.txt;
 fi
-sleep 2
+sleep 4
 
 # ENTER LOOP
 while :
@@ -38,22 +38,23 @@ if [ $status -eq 0 ]
     status="down"
 fi
 
+actualtime="%0A$(date +"%a, %d. %B %Y, %H:%M:%S")"
+
 if [ $status = up ] && grep -Fxq "offline" /var/log/pinghome-log.txt
 then
      echo $(date) 'Internet is back up.'
-     curl -s --max-time 10 -X POST ${botapi} --data "chat_id=${groupId1}" --data "disable_web_page_preview=true" --data "text=${infomessage2}" --connect-timeout 30 > /dev/null
+     curl -s --max-time 10 -X POST ${botapi} --data "chat_id=${groupId1}" --data "disable_web_page_preview=true" --data "text=${infomessage2}${actualtime}" --connect-timeout 30 > /dev/null
      echo "online" > /var/log/pinghome-log.txt
 
 elif [ $status = down ] && grep -Fxq "online" /var/log/pinghome-log.txt
 then
     echo $(date) 'Internet timeout.'
-    curl -s --max-time 10 -X POST ${botapi} --data "chat_id=${groupId1}" --data "disable_web_page_preview=true" --data "text=${infomessage3}" --connect-timeout 30 > /dev/null
+    curl -s --max-time 10 -X POST ${botapi} --data "chat_id=${groupId1}" --data "disable_web_page_preview=true" --data "text=${infomessage3}${actualtime}" --connect-timeout 30 > /dev/null
     echo "offline" > /var/log/pinghome-log.txt
     
 fi
 
 sleep $interval
-#echo 'Sleep time ' ${interval}
 
 done
 
